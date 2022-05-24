@@ -57,7 +57,15 @@ RacesAPI = df[["course", "time","id_race"]]
 Courses = RacesAPI['course']
 Courses = Courses.unique()
 
+def HomePress2():
+    Window4b_basic.hide()
+    Window3_RaceCard.hide()
+    Window2_TV.hide()
+    Window5_mprice.hide()
+    Window5a_rprice.hide()
+    Window5b_rprice.hide()
     
+   
 def HomePress():
     Window4b_basic.hide()
     Window3_RaceCard.hide()
@@ -520,7 +528,7 @@ Boxraceprice3 = Box(Window5a_rprice,height="fill",width="fill",align="left")
 
                  ######################## Window 5c - Race price result ###################################
 Window5b_rprice = Window(app, title="Prices", visible=False, width=1500, height = 800)
-Homebuttonpricer = PushButton(Window5b_rprice, command=HomePress,text="HOME", width=80, height = 2)
+Homebuttonpricer = PushButton(Window5b_rprice, command=HomePress2,text="HOME", width=80, height = 2)
 Homebuttonpricer.text_color = "white"
 Homebuttonpricer.bg = "red"
 Homebuttonpricer.text_size = 20
