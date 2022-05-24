@@ -105,14 +105,14 @@ def MeetingTimeProd(MeetingChosen):
         RPChoice = ButtonGroup(Boxraceprice2, options=RacesAPIChoice["time"],command=RPChoiceBut,width="fill",height="fill",align="right")
         RPChoice.text_size = 25
         for radio_button in RPChoice.children:
-            radio_button.tk.config(borderwidth=6)
+            radio_button.tk.config(borderwidth=10)
             radio_button.tk.config(bg="gainsboro")
             radio_button.tk.config(relief="raised")
     else:
         RPChoice = ButtonGroup(Boxraceprice2, options=RacesAPIChoice["time"],command=RPChoiceBut,width="fill",height="fill",align="right")
         RPChoice.text_size = 25
         for radio_button in RPChoice.children:
-            radio_button.tk.config(borderwidth=6)
+            radio_button.tk.config(borderwidth=10)
             radio_button.tk.config(bg="gainsboro")
             radio_button.tk.config(relief="raised")
     #for times in RacesAPIChoice["time"]:
@@ -196,7 +196,7 @@ def showtable(chosendata):
     Homebuttonpricer.bg = "red"
     Homebuttonpricer.text_size = 20
     style = ttk.Style()
-    style.configure("Treeview.Heading", highlightthickness=4, bd=0, font=('Calibri', 10))
+    style.configure("Treeview.Heading", highlightthickness=4, bd=0, font=('Calibri', 15))
     tv = ttk.Treeview(Window5b_rprice.tk,style="Treeview.Heading")
     tv["columns"]=list(chosendata.columns)
     tv["show"]="headings"
