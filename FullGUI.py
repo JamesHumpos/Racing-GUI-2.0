@@ -425,6 +425,7 @@ def watchpaddy():
     options = webdriver.ChromeOptions()
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--window-size=1920,1080')
     driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', chrome_options=options)
     driver.get("https://identitysso.paddypower.com/view/login?product=registration-web&url=https%3A%2F%2Fwww.paddypower.com%2Fbet%3F")
     pause.sleep(4)
@@ -440,7 +441,7 @@ def watchpaddy():
     button = driver.find_element_by_xpath("/html/body/div/page-container/div/main/div/content-managed-page/div/div[2]/div/div[2]/card-next-races/div/abc-card/div/div/abc-card-content/div/div[2]/div[1]/abc-race-sub-header/section/a")
     button.click()
     pause.sleep(10)
-    button = driver.find_element_by_xpath("/html/body/div[1]/div/div[1]/span")
+    button = driver.find_element_by_id("videoController")
     button.click()
     Window4b_basic.hide()
     Window5b_rprice.hide()
@@ -546,7 +547,7 @@ Homebutton1.text_color = "white"
 Homebutton1.bg = "red"
 Homebutton1.text_size = 20
 
-PPbutton = PushButton(Window2_TV, command=watchpaddy,text="Watch PaddyPower Live", width=80, height = 5)
+PPbutton = PushButton(Window2_TV, command=watchpaddy,text="Press me to Watch PaddyPower Live, this takes over 30 seconds", width=80, height = 5)
 PPbutton.text_size = 50
 PPbutton.text_color = "black"
 
@@ -566,18 +567,18 @@ Homebutton2.text_color = "white"
 Homebutton2.bg = "red"
 Homebutton2.text_size = 20
 
-WhichCardsTitle = Text(Window3_RaceCard, text= "Do you want to see all races today or one at a time?", size=25)
+WhichCardsTitle = Text(Window3_RaceCard, text= "Do you want to see all races today or one at a time?", size=30)
 
-DetailedCardsButton = PushButton(Window3_RaceCard, command=OpenallRC,text="ALL", width=40, height = 2)
-DetailedCardsButton.text_size = 25
+DetailedCardsButton = PushButton(Window3_RaceCard, command=OpenallRC,text="ALL racecards in one", width=40, height = 4)
+DetailedCardsButton.text_size = 35
 DetailedCardsButton.bg = "white"
 
 DetailedCardsButton.tk.config(borderwidth=7)
 DetailedCardsButton.tk.config(bg="gainsboro")
 DetailedCardsButton.tk.config(relief="raised")
 
-BasicCardsButton = PushButton(Window3_RaceCard, command=ByRaceRC,text="ONE", width=40, height = 2)
-BasicCardsButton.text_size = 25
+BasicCardsButton = PushButton(Window3_RaceCard, command=ByRaceRC,text="ONE race at a time", width=40, height = 4)
+BasicCardsButton.text_size = 35
 BasicCardsButton.bg = "white"
 
 BasicCardsButton.tk.config(borderwidth=7)
@@ -615,4 +616,5 @@ for radio_button in SimpleMChoices.children:
 ## Show app
 
 app.display()
+
 
