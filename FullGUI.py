@@ -191,15 +191,14 @@ def showtable(chosendata):
     tv.column("Horse",width=180)
     tv.column("Age",width=50)
     tv.column("Odds",width=120)
-    tv.column("Weight",width=50)
-    tv.column("Running",width=50)
+    tv.column("Weight",width=60)
+    tv.column("Running",width=70)
     tv.column("Number",width=50)
-    tv.column("Jockey / Trainer",width=300)
+    tv.column("Jockey / Trainer",width=290)
     chosendata_rows = chosendata.to_numpy().tolist()
     for row in chosendata_rows:
         tv.insert("","end",values=row)
     Window5b_rprice.add_tk_widget(tv)
-    Window5b_rprice.update()
     Window5b_rprice.show()
 
 
