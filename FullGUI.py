@@ -29,7 +29,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 import time as pause
 
-
+print("HEllo")
 def updateme():
     subprocess.Popen(['python', "/home/james/GUIGIT/autoupdate.py"])
     sys.exit(0)
