@@ -38,18 +38,18 @@ def updateme():
 ### Once AT TOP prices
 
 today = date.today()
-#conn = http.client.HTTPSConnection("horse-racing.p.rapidapi.com")
+conn = http.client.HTTPSConnection("horse-racing.p.rapidapi.com")
 
 APIheaders = {
     'X-RapidAPI-Host': "horse-racing.p.rapidapi.com",
     'X-RapidAPI-Key': "5e3da382c8msh1e45f5a643c7123p16a959jsna7f55c284038"
     }
 
-#conn.request("GET", "/racecards?date={}".format(today), headers=APIheaders)
-#res = conn.getresponse()
-#data = res.read()
+conn.request("GET", "/racecards?date={}".format(today), headers=APIheaders)
+res = conn.getresponse()
+data = res.read()
 
-#pathlib.Path('/home/james/GUIGIT/data.json').write_bytes(data)
+pathlib.Path('/home/james/GUIGIT/data.json').write_bytes(data)
 df = pd.read_json('/home/james/GUIGIT/data.json')
 df['time'] = df["date"].astype(str).str.extract('(\d+:\d+:\d+)')
 RacesAPI = df[["course", "time","id_race"]]
