@@ -466,12 +466,13 @@ WatchRaceButton = PushButton(WatchBtnBox, command=WatchRacePress, image="/home/j
 HelpButton = PushButton(app,command=gethelp,text="HELP",align="bottom")
 HelpButton.text_size=25
 HelpButton.bg="red"
+HelpButton.text_color = "white"
 home_button.when_pressed = pressed
 
 UpdateButton = PushButton(app,command=updateme,text="Update",align="bottom")
 UpdateButton.text_size=25
-UpdateButton.bg="red"
-
+UpdateButton.bg="green"
+UpdateButton.text_color = "white"
 
 ##home_button.wait_for_press()
 
