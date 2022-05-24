@@ -181,6 +181,10 @@ def cleanracedata(racedata):
     
 def showtable(chosendata):
     Window5b_rprice = Window(app, title="Prices", visible=False, width=1500, height = 800)
+    Homebuttonpricer = PushButton(Window5b_rprice, command=HomePress,text="HOME", width=80, height = 2)
+    Homebuttonpricer.text_color = "white"
+    Homebuttonpricer.bg = "red"
+    Homebuttonpricer.text_size = 20
     style = ttk.Style()
     style.configure("Treeview.Heading", highlightthickness=4, bd=0, font=('Calibri', 10))
     tv = ttk.Treeview(Window5b_rprice.tk,style="Treeview.Heading")
