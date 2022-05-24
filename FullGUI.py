@@ -180,6 +180,7 @@ def cleanracedata(racedata):
     showtable(horseraceall)
     
 def showtable(chosendata):
+    Window5b_rprice = Window(app, title="Prices", visible=False, width=1500, height = 800)
     style = ttk.Style()
     style.configure("Treeview.Heading", highlightthickness=4, bd=0, font=('Calibri', 10))
     tv = ttk.Treeview(Window5b_rprice.tk,style="Treeview.Heading")
@@ -198,6 +199,7 @@ def showtable(chosendata):
     for row in chosendata_rows:
         tv.insert("","end",values=row)
     Window5b_rprice.add_tk_widget(tv)
+    Window5b_rprice.update()
     Window5b_rprice.show()
 
 
