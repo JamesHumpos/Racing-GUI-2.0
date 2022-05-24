@@ -30,6 +30,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 import time as pause
 
 
+def updateme():
+    subprocess.Popen(['python', "/home/james/GUIGIT/autoupdate.py"])
+    sys.exit(0)
+
 ### Once AT TOP prices
 
 today = date.today()
@@ -455,6 +459,11 @@ HelpButton = PushButton(app,command=gethelp,text="HELP",align="bottom")
 HelpButton.text_size=25
 HelpButton.bg="red"
 home_button.when_pressed = pressed
+
+UpdateButton = PushButton(app,command=updateme,text="Update",align="bottom")
+UpdateButton.text_size=25
+UpdateButton.bg="red"
+
 
 ##home_button.wait_for_press()
 
