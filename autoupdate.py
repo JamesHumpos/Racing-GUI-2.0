@@ -6,6 +6,7 @@ import subprocess
 pause.sleep(5)
 
 repo = git.Repo('/home/james/GUIGIT')
+repo.git.reset('--hard')
 repo.remotes.origin.pull('master')
 
 pause.sleep(15)
