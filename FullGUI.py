@@ -181,7 +181,7 @@ def cleanracedata(racedata):
     
 def showtable(chosendata):
     style = ttk.Style()
-    style.configure("Treeview.Heading", highlightthickness=4, bd=0, font=('Calibri', 50))
+    style.configure("Treeview.Heading", highlightthickness=4, bd=0, font=('Calibri', 10))
     tv = ttk.Treeview(Window5b_rprice.tk,style="Treeview.Heading")
     tv["columns"]=list(chosendata.columns)
     tv["show"]="headings"
