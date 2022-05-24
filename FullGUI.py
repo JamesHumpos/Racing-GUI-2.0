@@ -103,16 +103,16 @@ def MeetingTimeProd(MeetingChosen):
     if 'RPChoice' in globals():
         RPChoice.destroy()
         RPChoice = ButtonGroup(Boxraceprice2, options=RacesAPIChoice["time"],command=RPChoiceBut,width="fill",height="fill",align="right")
-        RPChoice.text_size = 20
+        RPChoice.text_size = 25
         for radio_button in RPChoice.children:
-            radio_button.tk.config(borderwidth=5)
+            radio_button.tk.config(borderwidth=6)
             radio_button.tk.config(bg="gainsboro")
             radio_button.tk.config(relief="raised")
     else:
         RPChoice = ButtonGroup(Boxraceprice2, options=RacesAPIChoice["time"],command=RPChoiceBut,width="fill",height="fill",align="right")
-        RPChoice.text_size = 20
+        RPChoice.text_size = 25
         for radio_button in RPChoice.children:
-            radio_button.tk.config(borderwidth=5)
+            radio_button.tk.config(borderwidth=6)
             radio_button.tk.config(bg="gainsboro")
             radio_button.tk.config(relief="raised")
     #for times in RacesAPIChoice["time"]:
@@ -497,7 +497,7 @@ buttons_mpricebox = Box(Window5_mprice, height="fill",width="fill")
 ## Button by meeting
 MPChoiceb1 = Box(buttons_mpricebox,align="left",width="fill",height="fill")
 MPChoiceb3 = Box(buttons_mpricebox,align="left",width="fill",height="fill")
-MPChoice = ButtonGroup(buttons_mpricebox, options=Courses, selected=Courses[0], command=MPChoiceBut,width="fill",height="fill",align="left")
+MPChoice = ButtonGroup(buttons_mpricebox, options=Courses, command=MPChoiceBut,width="fill",height="fill",align="left")
 MPChoice.text_size = 30
 MPChoice.text_color = "black"
 MPChoice.bg = "white"
