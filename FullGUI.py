@@ -471,17 +471,18 @@ WatchBtnBox = Box(app,align="left",height="fill",width="fill")
 RaceCardButton = PushButton(RaceCardBtnBox, command=RaceCardPress, image="/home/james/GUIGIT/HomePageImages/CArds.png")
 LivePriceButton = PushButton(LivePriceBtnBox, command=PricesPress, image="/home/james/GUIGIT/HomePageImages/PRices.png")
 WatchRaceButton = PushButton(WatchBtnBox, command=WatchRacePress, image="/home/james/GUIGIT/HomePageImages/Watch.png")
+
+
+UpdateButton = PushButton(app,command=updateme,text="UPDATE",align="bottom")
+UpdateButton.text_size=25
+UpdateButton.bg="green"
+UpdateButton.text_color = "white"
+
 HelpButton = PushButton(app,command=gethelp,text="HELP",align="bottom")
 HelpButton.text_size=25
 HelpButton.bg="red"
 HelpButton.text_color = "white"
 home_button.when_pressed = pressed
-
-UpdateButton = PushButton(app,command=updateme,text="Update",align="bottom")
-UpdateButton.text_size=25
-UpdateButton.bg="green"
-UpdateButton.text_color = "white"
-
 ##home_button.wait_for_press()
 
                     ######################### Window 2a - Meeting price choice ################################
