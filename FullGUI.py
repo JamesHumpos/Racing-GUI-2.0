@@ -437,7 +437,7 @@ def watchpaddy():
     button = driver.find_element_by_id("login")
     button.click()
     pause.sleep(9)
-    button = driver.find_element_by_xpath("/html/body/div/page-container/div/main/div/content-managed-page/div/div[2]/div/div[1]/card-next-races/div/abc-card/div/div/abc-card-content/div/div[2]/div[1]/abc-race-sub-header/section/a")
+    button = driver.find_element_by_xpath("/html/body/div/page-container/div/main/div/content-managed-page/div/div[2]/div/div[2]/card-next-races/div/abc-card/div/div/abc-card-content/div/div[2]/div[1]/abc-race-sub-header/section/a")
     button.click()
     pause.sleep(10)
     button = driver.find_element_by_xpath("/html/body/div[1]/div/div[1]/span")
