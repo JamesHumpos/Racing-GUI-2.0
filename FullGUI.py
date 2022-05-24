@@ -547,8 +547,8 @@ Homebutton1.text_color = "white"
 Homebutton1.bg = "red"
 Homebutton1.text_size = 20
 
-PPbutton = PushButton(Window2_TV, command=watchpaddy,text="Press me to Watch PaddyPower Live, this takes over 30 seconds", width=80, height = 5)
-PPbutton.text_size = 50
+PPbutton = PushButton(Window2_TV, command=watchpaddy,text="Press to Watch Live, be patient", width=80, height = 5)
+PPbutton.text_size = 40
 PPbutton.text_color = "black"
 
 PPbutton.tk.config(borderwidth=10)
