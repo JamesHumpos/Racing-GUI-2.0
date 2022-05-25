@@ -11,5 +11,5 @@ repo.git.reset('--hard')
 repo.remotes.origin.pull('master')
 
 pause.sleep(15)
-subprocess.Popen(['python', "/home/james/GUIGIT/FullGUI.py"])
+subprocess.Popen(['sudo','shutdown','-r','now'])
 sysname.exit(0)
