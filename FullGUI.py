@@ -475,7 +475,7 @@ def gethelp():
 
                                             ## Window 0 -  Home page
 
-app = App(title="RacePad", bg="white", width=1500, height = 800)
+app = App(title="RacePad", bg="white", width=800, height = 800)
 MeetingsTodaytitle = Text(app, text= "Meetings Today:", size=25)
 MeetingNames = Text(app, text=namelist, size=25)
 MeetingNames.text_color = "green"
