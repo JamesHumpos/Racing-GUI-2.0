@@ -480,11 +480,15 @@ MeetingsTodaytitle = Text(app, text= "Meetings Today:", size=25)
 MeetingNames = Text(app, text=namelist, size=25)
 MeetingNames.text_color = "green"
 
-HomeButtonBox = Box(app,align="top",height="fill",width="fill")
+ButtonsBtnBox = Box(app,align="top",height="fill",width="fill")
 
-RaceCardButton = PushButton(HomeButtonBox, command=RaceCardPress, image="/home/james/GUIGIT/HomePageImages/CArds.png")
-LivePriceButton = PushButton(HomeButtonBox, command=PricesPress, image="/home/james/GUIGIT/HomePageImages/PRices.png")
-WatchRaceButton = PushButton(HomeButtonBox, command=WatchRacePress, image="/home/james/GUIGIT/HomePageImages/Watch.png")
+RaceCardBtnBox = Box(ButtonsBtnBox,align="left",height="fill",width="fill")
+LivePriceBtnBox = Box(ButtonsBtnBox,align="left",height="fill",width="fill")  
+WatchBtnBox = Box(ButtonsBtnBox,align="left",height="fill",width="fill")
+
+RaceCardButton = PushButton(RaceCardBtnBox, command=RaceCardPress, image="/home/james/GUIGIT/HomePageImages/CArds.png")
+LivePriceButton = PushButton(LivePriceBtnBox, command=PricesPress, image="/home/james/GUIGIT/HomePageImages/PRices.png")
+WatchRaceButton = PushButton(WatchBtnBox, command=WatchRacePress, image="/home/james/GUIGIT/HomePageImages/Watch.png")
 
 QuoteBox = Box(app,align="top",height="fill",width="fill")
 QuoteText = Text(QuoteBox,align="top",text=famousquote)
