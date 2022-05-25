@@ -482,9 +482,9 @@ MeetingNames.text_color = "green"
 
 HomeButtonBox = Box(app,align="top",height="fill",width="fill")
 
-RaceCardButton = PushButton(HomeButtonBox, command=RaceCardPress, image="/home/james/GUIGIT/HomePageImages/CArds.png",align="left",height="fill",width="fill")
-LivePriceButton = PushButton(HomeButtonBox, command=PricesPress, image="/home/james/GUIGIT/HomePageImages/PRices.png",align="left",height="fill",width="fill")
-WatchRaceButton = PushButton(HomeButtonBox, command=WatchRacePress, image="/home/james/GUIGIT/HomePageImages/Watch.png",align="left",height="fill",width="fill")
+RaceCardButton = PushButton(HomeButtonBox, command=RaceCardPress, image="/home/james/GUIGIT/HomePageImages/CArds.png",align="left")
+LivePriceButton = PushButton(HomeButtonBox, command=PricesPress, image="/home/james/GUIGIT/HomePageImages/PRices.png",align="left")
+WatchRaceButton = PushButton(HomeButtonBox, command=WatchRacePress, image="/home/james/GUIGIT/HomePageImages/Watch.png",align="left")
 
 QuoteBox = Box(app,align="top",height="fill",width="fill")
 QuoteText = Text(QuoteBox,align="top",text=famousquote)
