@@ -482,23 +482,19 @@ MeetingsTodaytitle = Text(app, text= "Meetings Today:", size=25)
 MeetingNames = Text(app, text=namelist, size=25)
 MeetingNames.text_color = "green"
 
-RaceCardBtnBox = Box(app,align="left",height="fill",width="fill")
-LivePriceBtnBox = Box(app,align="left",height="fill",width="fill")  
-WatchBtnBox = Box(app,align="left",height="fill",width="fill")
-RaceCardButton = PushButton(RaceCardBtnBox, command=RaceCardPress, image="/home/james/GUIGIT/HomePageImages/CArds.png")
-LivePriceButton = PushButton(LivePriceBtnBox, command=PricesPress, image="/home/james/GUIGIT/HomePageImages/PRices.png")
-WatchRaceButton = PushButton(WatchBtnBox, command=WatchRacePress, image="/home/james/GUIGIT/HomePageImages/Watch.png")
+HomeButtonBox = Box(app,align="top",height="fill",width="fill")
+
+RaceCardButton = PushButton(HomeButtonBox, command=RaceCardPress, image="/home/james/GUIGIT/HomePageImages/CArds.png",align="left")
+LivePriceButton = PushButton(HomeButtonBox, command=PricesPress, image="/home/james/GUIGIT/HomePageImages/PRices.png",align="left")
+WatchRaceButton = PushButton(HomeButtonBox, command=WatchRacePress, image="/home/james/GUIGIT/HomePageImages/Watch.png",align="left")
 
 QuoteBox = Box(app,align="bottom",height="fill",width="fill")
-HelpBox = Box(app,align="bottom",height="fill",width="fill")
-
-
-
-QuoteText = Text(app,align="top",text=famousquote)
+QuoteText = Text(QuoteBox,align="top",text=famousquote)
 QuoteText.text_size=15
-AuthorText= Text(app,align="bottom",text=famousauthor)
+AuthorText= Text(QuoteBox,align="bottom",text=famousauthor)
 AuthorText.text_size=8
 
+HelpBox = Box(app,align="bottom",height="fill",width="fill")
 UpdateButton = PushButton(HelpBox,command=updateme,text="UPDATE",align="bottom")
 UpdateButton.text_size=25
 UpdateButton.bg="green"
@@ -509,6 +505,7 @@ HelpButton.text_size=25
 HelpButton.bg="red"
 HelpButton.text_color = "white"
 home_button.when_pressed = pressed
+
 ##home_button.wait_for_press()
 
                     ######################### Window 2a - Meeting price choice ################################
