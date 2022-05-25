@@ -482,24 +482,24 @@ MeetingNames.text_color = "green"
 
 HomeButtonBox = Box(app,align="top",height="fill",width="fill")
 
-RaceCardButton = PushButton(HomeButtonBox, command=RaceCardPress, image="/home/james/GUIGIT/HomePageImages/CArds.png",align="left")
-LivePriceButton = PushButton(HomeButtonBox, command=PricesPress, image="/home/james/GUIGIT/HomePageImages/PRices.png",align="left")
-WatchRaceButton = PushButton(HomeButtonBox, command=WatchRacePress, image="/home/james/GUIGIT/HomePageImages/Watch.png",align="left")
+RaceCardButton = PushButton(HomeButtonBox, command=RaceCardPress, image="/home/james/GUIGIT/HomePageImages/CArds.png")
+LivePriceButton = PushButton(HomeButtonBox, command=PricesPress, image="/home/james/GUIGIT/HomePageImages/PRices.png")
+WatchRaceButton = PushButton(HomeButtonBox, command=WatchRacePress, image="/home/james/GUIGIT/HomePageImages/Watch.png")
 
 QuoteBox = Box(app,align="top",height="fill",width="fill")
 QuoteText = Text(QuoteBox,align="top",text=famousquote)
-QuoteText.text_size=15
+QuoteText.text_size=18
 AuthorText= Text(QuoteBox,align="top",text=famousauthor)
-AuthorText.text_size=8
+AuthorText.text_size=10
 
 HelpBox = Box(app,align="bottom",height="fill",width="fill")
 UpdateButton = PushButton(HelpBox,command=updateme,text="UPDATE",align="bottom")
-UpdateButton.text_size=25
+UpdateButton.text_size=20
 UpdateButton.bg="green"
 UpdateButton.text_color = "white"
 
 HelpButton = PushButton(HelpBox,command=gethelp,text="HELP",align="bottom")
-HelpButton.text_size=25
+HelpButton.text_size=20
 HelpButton.bg="red"
 HelpButton.text_color = "white"
 home_button.when_pressed = pressed
