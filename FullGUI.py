@@ -492,7 +492,7 @@ QuoteText.text_size=15
 AuthorText= Text(QuoteBox,align="top",text=famousauthor)
 AuthorText.text_size=8
 
-HelpBox = Box(app,align="right",height="fill",width="fill")
+HelpBox = Box(app,align="bottom",height="fill",width="fill")
 UpdateButton = PushButton(HelpBox,command=updateme,text="UPDATE",align="bottom")
 UpdateButton.text_size=25
 UpdateButton.bg="green"
