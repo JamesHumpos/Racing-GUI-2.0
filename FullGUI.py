@@ -13,6 +13,8 @@ from gpiozero import Button as PhsyicalButton
 from signal import pause
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from tkinter.font import names
 import psutil
 import shutil
@@ -58,7 +60,7 @@ conn = http.client.HTTPSConnection("horse-racing.p.rapidapi.com")
 
 APIheaders = {
     'X-RapidAPI-Host': "horse-racing.p.rapidapi.com",
-    'X-RapidAPI-Key': "5e3da382c8msh1e45f5a643c7123p16a959jsna7f55c284038"
+    'X-RapidAPI-Key': "cf6e098d1bmsh3d8cf5fffc03b52p153d87jsn3bae94c34116"
     }
 
 conn.request("GET", "/racecards?date={}".format(today), headers=APIheaders)
@@ -94,15 +96,7 @@ def PricesPress():
     Window2_TV.hide()
     Window3_RaceCard.hide()
     Window2_TV.hide()
-    
-### Each time prices clicked
 
-#def maketkexample():
-#    style = ttk.Style()
-#    style.configure("Treeview.Heading", highlightthickness=4, bd=0, font=('Calibri', 50))
-#    tv = ttk.Treeview(Window5b_rprice.tk,style="Treeview.Heading")
-#    Window5b_rprice.add_tk_widget(tv)
-#    Window5b_rprice.show()
 
 def MPChoiceBut():
     global Choiceone
@@ -185,11 +179,11 @@ def cleanracedata(racedata):
             bookielist.append(bookie)
             horseprice = horse
             horsepricelist.append(horseprice)
-            pricebookielist.append(price + " at " + bookie)
+            pricebookielist.append(price)
     livepricedf = ({'Horse':horselist,'Number':numberlist,'Jockey / Trainer':jockeytrainerlist,'Age':agelist,
                 'Weight':weightlist,'NR':nonrunnerlist})
     livepricedf = pd.DataFrame(data=livepricedf)
-    horsepricedf = ({'Horse':horsepricelist,'Price':pricelist,'Bookie':bookielist,'Odds':pricebookielist})
+    horsepricedf = ({'Horse':horsepricelist,'Price':pricelist,'Bookie':bookielist,'Odds_Bet365':pricebookielist})
     horsepricedf = pd.DataFrame(data=horsepricedf)
     horsepricedf=horsepricedf[horsepricedf.Bookie == "Bet365"]
     global horseraceall
@@ -197,7 +191,7 @@ def cleanracedata(racedata):
     horseraceall['Price'] = horseraceall['Price'].fillna(0)
     horseraceall['Bookie'] = horseraceall['Bookie'].fillna(0)
     horseraceall['Running'] = horseraceall.NR.replace(to_replace=["0", "1"], value=['yes', 'no'])
-    new_cols = ["Horse","Number","Odds","Age","Weight","Jockey / Trainer","Running"]
+    new_cols = ["Horse","Number","Odds_Bet365","Age","Weight","Jockey / Trainer","Running"]
     horseraceall=horseraceall[new_cols]
     Window5a_rprice.hide()
     showtable(horseraceall)
@@ -219,7 +213,7 @@ def showtable(chosendata):
         tv.heading(columns,text=columns)
     tv.column("Horse",width=180)
     tv.column("Age",width=50)
-    tv.column("Odds",width=120)
+    tv.column("Odds_Bet365",width=120)
     tv.column("Weight",width=60)
     tv.column("Running",width=70)
     tv.column("Number",width=50)
@@ -239,7 +233,7 @@ horseraceall=[]
 ############################################ URLS WE'LL USE ####################################################
 
 cardsurl = "https://www.attheraces.com"
-betsurl = "https://m.skybet.com"
+
 
 ############################################ LISTS WE'LL POPULATE LATER ##########################################
 
@@ -369,35 +363,6 @@ Races_By_Meetings = Races_By_Meetings[['Meeting', 'LinksSimple']]
 
 
 
-Races_By_Times = Races_By_Times.explode(column="Races",ignore_index=True)
-Races_By_Times = Races_By_Times.explode(column="Meeting",ignore_index=True)
-Races_By_Times['Times'] = Races_By_Times.Races.str.extract('(\d+:\d+)')
-Races_By_Times['Meeting-Time'] = Races_By_Times['Meeting'] + '  -  ' + Races_By_Times['Times']
-Races_By_Times['Time1'] = pd.to_datetime(Races_By_Times['Times'], format='%H:%M').dt.time
-Races_By_Times = Races_By_Times.sort_values(by='Time1')
-Races_By_Times = Races_By_Times[['Meeting-Time', 'LinksSimple']]
-
-
-
-   ########################################## BETS SET UP ############################################
-
-    
-    
-## Request info from the SkyBet odds page
-souplink = requests.get("https://m.skybet.com/horse-racing/meetings", headers=headers)
-soup = BeautifulSoup(souplink.content,"lxml")
-
-
-for racepanel in soup.find_all('div', {'class':'cell--link race-grid-col'}):
-    for race in racepanel.find("b","cell-text__line"):
-        meetingname = racepanel.text
-        oddsraces.append(meetingname)
-    for link in racepanel.select('a'):
-        links = link['href']
-        linksfull = urljoin(betsurl,links)
-        oddslinks.append(linksfull)
-
-
 ## OLD
 def RaceB1Open():
     webbrowser.get('chromium-browser').open(RaceOddsLinks.loc[RaceOddsLinks['Times'] == button1.text, 'Link'].iloc[0])
@@ -417,13 +382,6 @@ def WatchRacePress():
     Window3_RaceCard.hide()
 
         
-def OpenallRC():
-    webbrowser.get('chromium-browser').open('file:///home/james/GUIGIT/CreatedPDFs/Final.pdf', new=0)
-    Window4b_basic.hide()
-    Window5b_rprice.hide()
-    Window2_TV.hide()
-    Window3_RaceCard.hide()
-        
 def ByRaceRC():
     Window4b_basic.show(wait = True)
     Window3_RaceCard.hide()
@@ -437,7 +395,7 @@ def SimpleMeetingOpen():
     Window2_TV.hide()
     Window3_RaceCard.hide()
         
-def watchpaddy():
+def watchpaddy2():
     username = "timegan40"
     password = "Grandadbet123!"
     options = webdriver.ChromeOptions()
@@ -446,6 +404,10 @@ def watchpaddy():
     options.add_argument('--window-size=1920,1080')
     driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', chrome_options=options)
     driver.get("https://identitysso.paddypower.com/view/login?product=registration-web&url=https%3A%2F%2Fwww.paddypower.com%2Fbet%3F")
+    Window4b_basic.hide()
+    Window5b_rprice.hide()
+    Window2_TV.hide()
+    Window3_RaceCard.hide()
     pause.sleep(4)
     button = driver.find_element_by_id("onetrust-accept-btn-handler")
     button.click()
@@ -461,10 +423,45 @@ def watchpaddy():
     pause.sleep(10)
     button = driver.find_element_by_id("videoController")
     button.click()
+
+
+def watchpaddy():
+    username = "timegan40"
+    password = "Grandadbet123!"
+    options = webdriver.ChromeOptions()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--window-size=1920,1080')
+    driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', chrome_options=options)
+    wait=WebDriverWait(driver,20)
+    driver.get("https://identitysso.paddypower.com/view/login?product=registration-web&url=https%3A%2F%2Fwww.paddypower.com%2Fbet%3F")
     Window4b_basic.hide()
     Window5b_rprice.hide()
     Window2_TV.hide()
     Window3_RaceCard.hide()
+    buttonpath1 = "onetrust-accept-btn-handler"
+    button1 = wait.until(EC.element_to_be_clickable((By.ID, buttonpath1)))
+    button1.click()
+    pause.sleep(2)
+    driver.find_element_by_xpath("/html/body/div[2]/div/div[1]/div/div/form/fieldset/div[1]/div/input").send_keys(username)
+    driver.find_element_by_xpath("/html/body/div[2]/div/div[1]/div/div/form/fieldset/div[2]/div/div/input").send_keys(password)
+    pause.sleep(2)
+    buttonpath2 = "login"
+    button2 = wait.until(EC.element_to_be_clickable((By.ID, buttonpath2)))
+    button2.click()
+    buttonpath3 = "/html/body/div/page-container/div/main/div/content-managed-page/div/div[2]/div/div[2]/card-next-races/div/abc-card/div/div/abc-card-content/div/div[2]/div[1]/abc-race-sub-header/section/a"
+    button3 = wait.until(EC.element_to_be_clickable((By.XPATH, buttonpath3)))
+    button3.click()
+    while True:
+        if len(driver.find_elements(By.XPATH,"/html/body/div/iframe")) > 0:
+            break
+        driver.refresh()
+    frame = driver.find_element_by_xpath("/html/body/div/iframe")
+    driver.switch_to.frame(frame)
+    xpath = "/html/body/div[1]/div"
+    #tab = wait.until(EC.element_to_be_clickable((By.XPATH, xpath)))
+    tab = driver.find_element(By.CSS_SELECTOR("iconPlayPause"))
+    tab.click()
     
 def gethelp():
     webbrowser.get('chromium-browser').open("https://www.jameshumphreys.xyz/help")
