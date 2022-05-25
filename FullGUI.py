@@ -639,6 +639,3 @@ for radio_button in SimpleMChoices.children:
 ## Show app
 
 app.display()
-
-
-
