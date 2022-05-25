@@ -485,12 +485,14 @@ MeetingNames.text_color = "green"
 RaceCardBtnBox = Box(app,align="left",height="fill",width="fill")
 LivePriceBtnBox = Box(app,align="left",height="fill",width="fill")  
 WatchBtnBox = Box(app,align="left",height="fill",width="fill")
-QuoteBox = Box(app,align="bottom",height="fill",width="fill")
-HelpBox = Box(app,align="bottom",height="fill",width="fill")
-
 RaceCardButton = PushButton(RaceCardBtnBox, command=RaceCardPress, image="/home/james/GUIGIT/HomePageImages/CArds.png")
 LivePriceButton = PushButton(LivePriceBtnBox, command=PricesPress, image="/home/james/GUIGIT/HomePageImages/PRices.png")
 WatchRaceButton = PushButton(WatchBtnBox, command=WatchRacePress, image="/home/james/GUIGIT/HomePageImages/Watch.png")
+
+QuoteBox = Box(app,align="bottom",height="fill",width="fill")
+HelpBox = Box(app,align="bottom",height="fill",width="fill")
+
+
 
 QuoteText = Text(app,align="top",text=famousquote)
 QuoteText.text_size=15
