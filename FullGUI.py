@@ -43,8 +43,8 @@ quoteurl = "https://andruxnet-random-famous-quotes.p.rapidapi.com/"
 quotequerystring = {"cat":"famous","count":"1"}
 
 quoteheaders = {
-	"X-RapidAPI-Host": "andruxnet-random-famous-quotes.p.rapidapi.com",
-	"X-RapidAPI-Key": "5e3da382c8msh1e45f5a643c7123p16a959jsna7f55c284038"
+    "X-RapidAPI-Host": "andruxnet-random-famous-quotes.p.rapidapi.com",
+    "X-RapidAPI-Key": "5e3da382c8msh1e45f5a643c7123p16a959jsna7f55c284038"
 }
 
 quoteresponse = requests.get(quoteurl, headers=quoteheaders, params=quotequerystring)
@@ -485,8 +485,8 @@ MeetingNames.text_color = "green"
 RaceCardBtnBox = Box(app,align="left",height="fill",width="fill")
 LivePriceBtnBox = Box(app,align="left",height="fill",width="fill")  
 WatchBtnBox = Box(app,align="left",height="fill",width="fill")
-QuoteBox = Box(app,align="bottom",,height="fill",width="fill")
-HelpBox = Box(app,align="bottom",,height="fill",width="fill")
+QuoteBox = Box(app,align="bottom",height="fill",width="fill")
+HelpBox = Box(app,align="bottom",height="fill",width="fill")
 
 RaceCardButton = PushButton(RaceCardBtnBox, command=RaceCardPress, image="/home/james/GUIGIT/HomePageImages/CArds.png")
 LivePriceButton = PushButton(LivePriceBtnBox, command=PricesPress, image="/home/james/GUIGIT/HomePageImages/PRices.png")
@@ -639,5 +639,6 @@ for radio_button in SimpleMChoices.children:
 ## Show app
 
 app.display()
+
 
 
