@@ -37,6 +37,23 @@ def updateme():
 
 ### Once AT TOP prices
 
+
+quoteurl = "https://andruxnet-random-famous-quotes.p.rapidapi.com/"
+
+quotequerystring = {"cat":"famous","count":"1"}
+
+quoteheaders = {
+	"X-RapidAPI-Host": "andruxnet-random-famous-quotes.p.rapidapi.com",
+	"X-RapidAPI-Key": "5e3da382c8msh1e45f5a643c7123p16a959jsna7f55c284038"
+}
+
+quoteresponse = requests.get(quoteurl, headers=quoteheaders, params=quotequerystring)
+quotejson_data = json.loads(quoteresponse.text)
+famousquote = quotejson_data[0]['quote']
+famousauthor = quotejson_data[0]['author']
+
+
+
 today = date.today()
 conn = http.client.HTTPSConnection("horse-racing.p.rapidapi.com")
 
@@ -468,18 +485,24 @@ MeetingNames.text_color = "green"
 RaceCardBtnBox = Box(app,align="left",height="fill",width="fill")
 LivePriceBtnBox = Box(app,align="left",height="fill",width="fill")  
 WatchBtnBox = Box(app,align="left",height="fill",width="fill")
+QuoteBox = Box(app,align="bottom",,height="fill",width="fill")
+HelpBox = Box(app,align="bottom",,height="fill",width="fill")
 
 RaceCardButton = PushButton(RaceCardBtnBox, command=RaceCardPress, image="/home/james/GUIGIT/HomePageImages/CArds.png")
 LivePriceButton = PushButton(LivePriceBtnBox, command=PricesPress, image="/home/james/GUIGIT/HomePageImages/PRices.png")
 WatchRaceButton = PushButton(WatchBtnBox, command=WatchRacePress, image="/home/james/GUIGIT/HomePageImages/Watch.png")
 
+QuoteText = Text(app,align="top",text=famousquote)
+QuoteText.text_size=15
+AuthorText= Text(app,align="bottom",text=famousauthor)
+AuthorText.text_size=8
 
-UpdateButton = PushButton(app,command=updateme,text="UPDATE",align="bottom")
+UpdateButton = PushButton(HelpBox,command=updateme,text="UPDATE",align="bottom")
 UpdateButton.text_size=25
 UpdateButton.bg="green"
 UpdateButton.text_color = "white"
 
-HelpButton = PushButton(app,command=gethelp,text="HELP",align="bottom")
+HelpButton = PushButton(HelpBox,command=gethelp,text="HELP",align="bottom")
 HelpButton.text_size=25
 HelpButton.bg="red"
 HelpButton.text_color = "white"
