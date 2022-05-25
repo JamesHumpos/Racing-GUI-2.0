@@ -112,16 +112,16 @@ def MeetingTimeProd(MeetingChosen):
     if 'RPChoice' in globals():
         RPChoice.destroy()
         RPChoice = ButtonGroup(Boxraceprice2, options=RacesAPIChoice["time"],command=RPChoiceBut,width="fill",height="fill",align="right")
-        RPChoice.text_size = 25
+        RPChoice.text_size = 30
         for radio_button in RPChoice.children:
-            radio_button.tk.config(borderwidth=10)
+            radio_button.tk.config(borderwidth=12)
             radio_button.tk.config(bg="gainsboro")
             radio_button.tk.config(relief="raised")
     else:
         RPChoice = ButtonGroup(Boxraceprice2, options=RacesAPIChoice["time"],command=RPChoiceBut,width="fill",height="fill",align="right")
-        RPChoice.text_size = 25
+        RPChoice.text_size = 30
         for radio_button in RPChoice.children:
-            radio_button.tk.config(borderwidth=10)
+            radio_button.tk.config(borderwidth=12)
             radio_button.tk.config(bg="gainsboro")
             radio_button.tk.config(relief="raised")
     #for times in RacesAPIChoice["time"]:
@@ -492,9 +492,9 @@ WatchRaceButton = PushButton(WatchBtnBox, command=WatchRacePress, image="/home/j
 
 QuoteBox = Box(app,align="top",height="fill",width="fill")
 QuoteText = Text(QuoteBox,align="top",text=famousquote)
-QuoteText.text_size=18
+QuoteText.text_size=25
 AuthorText= Text(QuoteBox,align="top",text=famousauthor)
-AuthorText.text_size=10
+AuthorText.text_size=20
 
 HelpBox = Box(app,align="bottom",height="fill",width="fill")
 UpdateButton = PushButton(HelpBox,command=updateme,text="UPDATE",align="bottom")
@@ -526,12 +526,12 @@ buttons_mpricebox = Box(Window5_mprice, height="fill",width="fill")
 MPChoiceb1 = Box(buttons_mpricebox,align="left",width="fill",height="fill")
 MPChoiceb3 = Box(buttons_mpricebox,align="left",width="fill",height="fill")
 MPChoice = ButtonGroup(buttons_mpricebox, options=Courses, command=MPChoiceBut,width="fill",height="fill",align="left")
-MPChoice.text_size = 30
+MPChoice.text_size = 32
 MPChoice.text_color = "black"
 MPChoice.bg = "white"
 
 for radio_button in MPChoice.children:
-    radio_button.tk.config(borderwidth=10)
+    radio_button.tk.config(borderwidth=12)
     radio_button.tk.config(bg="gainsboro")
     radio_button.tk.config(relief="raised")
 
@@ -573,11 +573,11 @@ Homebutton1.text_color = "white"
 Homebutton1.bg = "red"
 Homebutton1.text_size = 20
 
-PPbutton = PushButton(Window2_TV, command=watchpaddy,text="Press to Watch Live, be patient", width=80, height = 5)
-PPbutton.text_size = 40
+PPbutton = PushButton(Window2_TV, command=watchpaddy,text="Press to Watch Live, be patient", width=60, height = 3)
+PPbutton.text_size = 32
 PPbutton.text_color = "black"
 
-PPbutton.tk.config(borderwidth=10)
+PPbutton.tk.config(borderwidth=12)
 PPbutton.tk.config(bg="gainsboro")
 PPbutton.tk.config(relief="raised")
 
@@ -630,11 +630,11 @@ buttons_box2 = Box(Window4b_basic, height="fill",width="fill",align="left")
 
 ## BUtton by meeting
 SimpleMChoices = ButtonGroup(buttons_box1, options=Races_By_Meetings['Meeting'], selected=Races_By_Meetings['Meeting'].iloc[0], command=SimpleMeetingOpen,width="fill",height="fill")
-SimpleMChoices.text_size = 25
+SimpleMChoices.text_size = 32
 SimpleMChoices.text_color = "black"
 SimpleMChoices.bg = "white"
 for radio_button in SimpleMChoices.children:
-    radio_button.tk.config(borderwidth=7)
+    radio_button.tk.config(borderwidth=12)
     radio_button.tk.config(bg="gainsboro")
     radio_button.tk.config(relief="raised")
 
