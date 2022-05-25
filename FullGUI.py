@@ -33,7 +33,6 @@ import sys as sysname
 
 def updateme():
     subprocess.Popen(['python', "/home/james/GUIGIT/autoupdate.py"])
-    sysname.exit(0)
 
 ### Once AT TOP prices
 
@@ -82,7 +81,6 @@ def HomePress2():
     Window5a_rprice.hide()
     Window5b_rprice.hide()
     
-   
 def HomePress():
     Window4b_basic.hide()
     Window3_RaceCard.hide()
