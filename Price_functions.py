@@ -5,6 +5,11 @@ def changeschoice(chosen_race):
     #global chosen_race
     getodds(chosen_race)
     
+APIheaders = {
+    'X-RapidAPI-Host': "horse-racing.p.rapidapi.com",
+    'X-RapidAPI-Key': "cf6e098d1bmsh3d8cf5fffc03b52p153d87jsn3bae94c34116"
+    }
+
 def getodds(chosen_race):
     conn = http.client.HTTPSConnection("horse-racing.p.rapidapi.com")
     conn.request("GET", "/race/{}".format(chosen_race), headers=APIheaders)
