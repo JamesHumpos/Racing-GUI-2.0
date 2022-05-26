@@ -16,6 +16,22 @@ Autostart and autoupdate features require a service to be created in using syste
 
 Service file:
 
+[Unit]
+Description=Runs my GUI
+After=network-online.target
+
+[Service]
+ExecStartPre=/bin/sleep 20
+ExecStart=/usr/bin/python /home/pi/GUI.py
+Type=oneshot
+User=pi
+Environment=DISPLAY=:0.0
+
+
+[Install]
+WantedBy=graphical.target
+
+
 
 MIT License
 
