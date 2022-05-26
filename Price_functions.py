@@ -1,5 +1,7 @@
 #! /usr/bin/python
 from Import_modules import * ## import external functions
+
+
 def changeschoice(chosen_race):
     chosen_race = chosen_race
     #global chosen_race
@@ -63,6 +65,5 @@ def cleanracedata(racedata):
     horseraceall['Running'] = horseraceall.NR.replace(to_replace=["0", "1"], value=['yes', 'no'])
     new_cols = ["Horse","Number","Odds_Bet365","Age","Weight","Jockey / Trainer","Running"]
     horseraceall=horseraceall[new_cols]
-    showtable(horseraceall)
     
 
