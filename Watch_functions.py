@@ -2,8 +2,8 @@
 
 from Import_modules import * ## import external functions
 def watchpaddy2():
-    username = "timegan40"
-    password = "Grandadbet123!"
+    username = "SECRET"
+    password = "SECRET"
     options = webdriver.ChromeOptions()
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
@@ -32,8 +32,8 @@ def watchpaddy2():
 
 
 def watchpaddy():
-    username = "timegan40"
-    password = "Grandadbet123!"
+    username = "SECRET"
+    password = "SECRET"
     options = webdriver.ChromeOptions()
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
