@@ -1,29 +1,24 @@
 #! /usr/bin/python
-from Import_modules import *
+from Import_modules import * ## import external functions
+from Navigation_buttons import * ## buttons that dictate user's movement through GUI
+from Price_functions import * ## buttons that relate to fetching prices
+from Watch_functions import * ## buttons that relate to live streaming
+from PDF_functions import * ## buttons that relate to PDF creation
 
 
-def updateme():
-    subprocess.Popen(['python', "/home/james/GUIGIT/autoupdate.py"])
-
-### Once AT TOP prices
-
-
+### Create famous quote for homepage from API
 quoteurl = "https://andruxnet-random-famous-quotes.p.rapidapi.com/"
-
 quotequerystring = {"cat":"famous","count":"1"}
-
 quoteheaders = {
     "X-RapidAPI-Host": "andruxnet-random-famous-quotes.p.rapidapi.com",
     "X-RapidAPI-Key": "5e3da382c8msh1e45f5a643c7123p16a959jsna7f55c284038"
 }
-
 quoteresponse = requests.get(quoteurl, headers=quoteheaders, params=quotequerystring)
 quotejson_data = json.loads(quoteresponse.text)
 famousquote = quotejson_data[0]['quote']
 famousauthor = quotejson_data[0]['author']
 
-
-
+## Get a list of each race on today with respective UIDs 
 today = date.today()
 conn = http.client.HTTPSConnection("horse-racing.p.rapidapi.com")
 
@@ -36,6 +31,7 @@ conn.request("GET", "/racecards?date={}".format(today), headers=APIheaders)
 res = conn.getresponse()
 data = res.read()
 
+## Download and parse response JSON
 pathlib.Path('/home/james/GUIGIT/data.json').write_bytes(data)
 df = pd.read_json('/home/james/GUIGIT/data.json')
 df['time'] = df["date"].astype(str).str.extract('(\d+:\d+:\d+)')
@@ -43,166 +39,12 @@ RacesAPI = df[["course", "time","id_race"]]
 
 Courses = RacesAPI['course']
 Courses = Courses.unique()
-
-def HomePress2():
-    Window4b_basic.hide()
-    Window3_RaceCard.hide()
-    Window2_TV.hide()
-    Window5_mprice.hide()
-    Window5a_rprice.hide()
-    Window5b_rprice.hide()
-    
-def HomePress():
-    Window4b_basic.hide()
-    Window3_RaceCard.hide()
-    Window2_TV.hide()
-    Window5_mprice.hide()
-    Window5a_rprice.hide()
-    Window5b_rprice.hide()
-
-def PricesPress():
-    Window5_mprice.show(wait = True)
-    Window2_TV.hide()
-    Window3_RaceCard.hide()
-    Window2_TV.hide()
-
-
-def MPChoiceBut():
-    global Choiceone
-    Choiceone = MPChoice.value
-    print(MPChoice.value)
-    MeetingTimeProd(Choiceone)
-
-def MeetingTimeProd(MeetingChosen):
-    RacesAPIChoice=RacesAPI[RacesAPI.course == MeetingChosen]
-    print(RacesAPIChoice)
-    print(MeetingChosen)
-    global RPChoice
-    if 'RPChoice' in globals():
-        RPChoice.destroy()
-        RPChoice = ButtonGroup(Boxraceprice2, options=RacesAPIChoice["time"],command=RPChoiceBut,width="fill",height="fill",align="right")
-        RPChoice.text_size = 30
-        for radio_button in RPChoice.children:
-            radio_button.tk.config(borderwidth=12)
-            radio_button.tk.config(bg="gainsboro")
-            radio_button.tk.config(relief="raised")
-    else:
-        RPChoice = ButtonGroup(Boxraceprice2, options=RacesAPIChoice["time"],command=RPChoiceBut,width="fill",height="fill",align="right")
-        RPChoice.text_size = 30
-        for radio_button in RPChoice.children:
-            radio_button.tk.config(borderwidth=12)
-            radio_button.tk.config(bg="gainsboro")
-            radio_button.tk.config(relief="raised")
-    #for times in RacesAPIChoice["time"]:
-        #RPChoice.append(times)
-    print(RacesAPIChoice["time"])
-    Window5_mprice.hide()
-    Window5a_rprice.show()
-    
-def RPChoiceBut():
-    global chosen_race
-    chosen_race = RacesAPI.loc[RacesAPI['time'] == RPChoice.value, 'id_race'].iloc[0]
-    changeschoice(chosen_race)
-
-def changeschoice(chosen_race):
-    chosen_race = chosen_race
-    #global chosen_race
-    getodds(chosen_race)
-    
-def getodds(chosen_race):
-    conn = http.client.HTTPSConnection("horse-racing.p.rapidapi.com")
-    conn.request("GET", "/race/{}".format(chosen_race), headers=APIheaders)
-    raceres = conn.getresponse()
-    racedata = raceres.read()
-    cleanracedata(json.loads(racedata.decode('utf-8')))
-    
-def cleanracedata(racedata):
-    horselist=[]
-    jockeytrainerlist=[]
-    agelist=[]
-    weightlist=[]
-    numberlist=[]
-    nonrunnerlist=[]
-    pricelist=[]
-    bookielist=[]
-    horsepricelist=[]
-    pricebookielist=[]
-    for eachhorse in racedata["horses"]:
-        horse = eachhorse["horse"]
-        jockey = eachhorse["jockey"]
-        trainer = eachhorse["trainer"]
-        age = eachhorse["age"]
-        weight = eachhorse["weight"]
-        number = eachhorse["number"]
-        non_runner = eachhorse["non_runner"]
-        horselist.append(horse)
-        jockeytrainerlist.append(jockey + " / " + trainer)
-        agelist.append(age)
-        weightlist.append(weight)
-        numberlist.append(number)
-        nonrunnerlist.append(non_runner)
-        for eachodd in eachhorse["odds"]:
-            bookie = eachodd["bookie"]
-            price = eachodd["odd"]
-            pricelist.append(price)
-            bookielist.append(bookie)
-            horseprice = horse
-            horsepricelist.append(horseprice)
-            pricebookielist.append(price)
-    livepricedf = ({'Horse':horselist,'Number':numberlist,'Jockey / Trainer':jockeytrainerlist,'Age':agelist,
-                'Weight':weightlist,'NR':nonrunnerlist})
-    livepricedf = pd.DataFrame(data=livepricedf)
-    horsepricedf = ({'Horse':horsepricelist,'Price':pricelist,'Bookie':bookielist,'Odds_Bet365':pricebookielist})
-    horsepricedf = pd.DataFrame(data=horsepricedf)
-    horsepricedf=horsepricedf[horsepricedf.Bookie == "Bet365"]
-    global horseraceall
-    horseraceall = pd.merge(livepricedf, horsepricedf, on="Horse", how="left")
-    horseraceall['Price'] = horseraceall['Price'].fillna(0)
-    horseraceall['Bookie'] = horseraceall['Bookie'].fillna(0)
-    horseraceall['Running'] = horseraceall.NR.replace(to_replace=["0", "1"], value=['yes', 'no'])
-    new_cols = ["Horse","Number","Odds_Bet365","Age","Weight","Jockey / Trainer","Running"]
-    horseraceall=horseraceall[new_cols]
-    Window5a_rprice.hide()
-    showtable(horseraceall)
-    
-def showtable(chosendata):
-    def HomePress2():
-        Window5b_rprice.hide()
-    Window5b_rprice = Window(app, title="Prices", visible=False, width=1500, height = 800)
-    Homebuttonpricer = PushButton(Window5b_rprice, command=HomePress2,text="HOME", width=80, height = 2)
-    Homebuttonpricer.text_color = "white"
-    Homebuttonpricer.bg = "red"
-    Homebuttonpricer.text_size = 20
-    style = ttk.Style()
-    style.configure("Treeview.Heading", highlightthickness=4, bd=0, font=('Calibri', 15))
-    tv = ttk.Treeview(Window5b_rprice.tk,style="Treeview.Heading")
-    tv["columns"]=list(chosendata.columns)
-    tv["show"]="headings"
-    for columns in tv["columns"]:
-        tv.heading(columns,text=columns)
-    tv.column("Horse",width=180)
-    tv.column("Age",width=50)
-    tv.column("Odds_Bet365",width=120)
-    tv.column("Weight",width=60)
-    tv.column("Running",width=70)
-    tv.column("Number",width=50)
-    tv.column("Jockey / Trainer",width=290)
-    chosendata_rows = chosendata.to_numpy().tolist()
-    for row in chosendata_rows:
-        tv.insert("","end",values=row)
-    Window5b_rprice.add_tk_widget(tv)
-    Window5b_rprice.show()
-
-
-
-
 horseraceall=[]
 
 
-############################################ URLS WE'LL USE ####################################################
+############################################ URL FOR RACE CARDS WE'LL USE ####################################################
 
 cardsurl = "https://www.attheraces.com"
-
 
 ############################################ LISTS WE'LL POPULATE LATER ##########################################
 
@@ -231,7 +73,7 @@ if not sysCmd.path.exists(folder_location):sysCmd.mkdir(folder_location)
 souplink = requests.get("https://www.attheraces.com/printouts/", headers=headers)
 soup = BeautifulSoup(souplink.content,"lxml")
 
-############################################## GET MEETING NAME LIST ##############################################
+############################################## GET MEETING NAME LIST IN REQ FORMAT ##############################################
 
 for meeting in soup.find_all("h3","h6"):
     name = meeting.get_text()
@@ -241,19 +83,10 @@ for meeting in soup.find_all("h3","h6"):
     
 home_button = PhsyicalButton(15)
 off_button = PhsyicalButton(24)
-
-def pressed(button):
-    if button.pin.number == 15:
-        sysCmd.system('sudo killall chromium-browser')
-
     
 ############################################## CARDS SET UP ######################################################
 
-def download_file(download_url, filename):
-    response = urllib.request.urlopen(download_url)    
-    file = open(filename, 'wb')
-    file.write(response.read())
-    file.close()
+
 
 filenamelist=[]
 linkssimple=[]
@@ -271,48 +104,28 @@ for race in soup.find_all('section', {'class':'panel push--x-small'}):
         
 merger = PdfFileMerger()
 
+## merge all PDFs
 for pdf in filenamelist:
     merger.append(pdf)
-
+    
+## merge all PDFs
 merger.write("/home/james/GUIGIT/CreatedPDFs/TodaysRacesSimple.pdf")
 merger.close()
-
-def OpenallRC():
-    filename = "/home/james/GUIGIT/CreatedPDFs/TodaysRacesSimple.pdf"
-    cmd = f"pdf-crop-margins -v -s -u {filename} -o /home/james/GUIGIT/CreatedPDFs/TodaysRaces.pdf"
-    proc = subprocess.Popen(cmd.split())
-    proc.wait()
-    output = PdfFileWriter() 
-    input = PdfFileReader(open("/home/james/GUIGIT/CreatedPDFs/TodaysRaces.pdf", 'rb')) 
-    n = input.getNumPages()
-    for i in range(n):
-        page = input.getPage(i)
-        page.cropBox.upperLeft = (577,750)
-        page.cropBox.upperRight = (17,750)
-        page.cropBox.lowerLeft = (577,30)
-        page.cropBox.lowerRight = (17,30)
-        output.addPage(page) 
-        outputStream = open("/home/james/GUIGIT/CreatedPDFs/Final.pdf",'wb') 
-        output.write(outputStream) 
-        outputStream.close()
-    webbrowser.get('chromium-browser').open('file:///home/james/GUIGIT/CreatedPDFs/Final.pdf', new=0)
-    Window4b_basic.hide()
-    Window5b_rprice.hide()
-    Window2_TV.hide()
-    Window3_RaceCard.hide()
-
+        
        
 linkssimple=[]
 meetinglist=[]
 namedf=[]
 
+## Create meeting by meeting option list with links to respective PDFs if all together not required
 for race in soup.find_all('section', {'class':'panel push--x-small'}):
     for link in race.select("a[href$='atrformracecard.pdf']"):
         links_full = urljoin(cardsurl,link['href'])
         linkssimple.append(links_full)
         meetingname = race.find("h3","h6")
         meetinglist.append(meetingname)
-
+        
+## in case these are not uploaded yet
 for i in soup.find_all("h3", "h7"):
     if i.text != 'Printouts not yet available':
         namedf.append(i)
@@ -323,6 +136,7 @@ name = s['Races'].iloc[0]
 Races_By_Meetings = s.loc[s['Races'] == name]
 Races_By_Times = s.loc[s['Races'] != name]
 
+## clean race/meeting names
 Races_By_Meetings = Races_By_Meetings.explode(column="Meeting",ignore_index=True)
 MeetingListExc = Races_By_Meetings['Meeting']
 unique_meeting_list = MeetingListExc.unique()
@@ -331,113 +145,6 @@ Races_By_Meetings['Meeting'] ='All at ' + Races_By_Meetings['Meeting']
 Races_By_Meetings = Races_By_Meetings[['Meeting', 'LinksSimple']]
 
 
-
-## OLD
-def RaceB1Open():
-    webbrowser.get('chromium-browser').open(RaceOddsLinks.loc[RaceOddsLinks['Times'] == button1.text, 'Link'].iloc[0])
-    Window5b_rprice.hide()
-    Window3_RaceCard.hide()
-    Window2_TV.hide()
-        
-def RaceCardPress():
-    Window3_RaceCard.show(wait = True)
-    Window2_TV.hide()
-    Window5b_rprice.hide()
-
-def WatchRacePress():
-    Window2_TV.show(wait = True)
-    Window4b_basic.hide()
-    Window5b_rprice.hide()
-    Window3_RaceCard.hide()
-
-        
-def ByRaceRC():
-    Window4b_basic.show(wait = True)
-    Window3_RaceCard.hide()
-    Window2_TV.hide()
-    Window5b_rprice.hide()
-
-def SimpleMeetingOpen():
-    webbrowser.get('chromium-browser').open(Races_By_Meetings.loc[Races_By_Meetings['Meeting'] == SimpleMChoices.value, 'LinksSimple'].iloc[0])
-    Window4b_basic.hide()
-    Window5b_rprice.hide()
-    Window2_TV.hide()
-    Window3_RaceCard.hide()
-        
-def watchpaddy2():
-    username = "timegan40"
-    password = "Grandadbet123!"
-    options = webdriver.ChromeOptions()
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--window-size=1920,1080')
-    driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', chrome_options=options)
-    driver.get("https://identitysso.paddypower.com/view/login?product=registration-web&url=https%3A%2F%2Fwww.paddypower.com%2Fbet%3F")
-    Window4b_basic.hide()
-    Window5b_rprice.hide()
-    Window2_TV.hide()
-    Window3_RaceCard.hide()
-    pause.sleep(4)
-    button = driver.find_element_by_id("onetrust-accept-btn-handler")
-    button.click()
-    pause.sleep(2)
-    driver.find_element_by_xpath("/html/body/div[2]/div/div[1]/div/div/form/fieldset/div[1]/div/input").send_keys(username)
-    driver.find_element_by_xpath("/html/body/div[2]/div/div[1]/div/div/form/fieldset/div[2]/div/div/input").send_keys(password)
-    pause.sleep(2)
-    button = driver.find_element_by_id("login")
-    button.click()
-    pause.sleep(9)
-    button = driver.find_element_by_xpath("/html/body/div/page-container/div/main/div/content-managed-page/div/div[2]/div/div[2]/card-next-races/div/abc-card/div/div/abc-card-content/div/div[2]/div[1]/abc-race-sub-header/section/a")
-    button.click()
-    pause.sleep(10)
-    button = driver.find_element_by_id("videoController")
-    button.click()
-
-
-def watchpaddy():
-    username = "timegan40"
-    password = "Grandadbet123!"
-    options = webdriver.ChromeOptions()
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--window-size=1920,1080')
-    driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', chrome_options=options)
-    wait=WebDriverWait(driver,20)
-    driver.get("https://identitysso.paddypower.com/view/login?product=registration-web&url=https%3A%2F%2Fwww.paddypower.com%2Fbet%3F")
-    Window4b_basic.hide()
-    Window5b_rprice.hide()
-    Window2_TV.hide()
-    Window3_RaceCard.hide()
-    buttonpath1 = "onetrust-accept-btn-handler"
-    button1 = wait.until(EC.element_to_be_clickable((By.ID, buttonpath1)))
-    button1.click()
-    pause.sleep(2)
-    driver.find_element_by_xpath("/html/body/div[2]/div/div[1]/div/div/form/fieldset/div[1]/div/input").send_keys(username)
-    driver.find_element_by_xpath("/html/body/div[2]/div/div[1]/div/div/form/fieldset/div[2]/div/div/input").send_keys(password)
-    pause.sleep(2)
-    buttonpath2 = "login"
-    button2 = wait.until(EC.element_to_be_clickable((By.ID, buttonpath2)))
-    button2.click()
-    buttonpath3 = "/html/body/div/page-container/div/main/div/content-managed-page/div/div[2]/div/div[2]/card-next-races/div/abc-card/div/div/abc-card-content/div/div[2]/div[1]/abc-race-sub-header/section/a"
-    button3 = wait.until(EC.element_to_be_clickable((By.XPATH, buttonpath3)))
-    button3.click()
-    while True:
-        if len(driver.find_elements(By.XPATH,"/html/body/div/iframe")) > 0:
-            break
-        driver.refresh()
-    frame = driver.find_element_by_xpath("/html/body/div/iframe")
-    driver.switch_to.frame(frame)
-    xpath = "/html/body/div[1]/div"
-    #tab = wait.until(EC.element_to_be_clickable((By.XPATH, xpath)))
-    tab = driver.find_element(By.CSS_SELECTOR("iconPlayPause"))
-    tab.click()
-    
-def gethelp():
-    webbrowser.get('chromium-browser').open("https://www.jameshumphreys.xyz/help")
-    Window4b_basic.hide()
-    Window5b_rprice.hide()
-    Window2_TV.hide()
-    Window3_RaceCard.hide()
 
                                     ## Simple GUI for navigating the days races
 
