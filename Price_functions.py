@@ -1,5 +1,5 @@
 #! /usr/bin/python
-
+from Import_modules import * ## import external functions
 def changeschoice(chosen_race):
     chosen_race = chosen_race
     #global chosen_race
