@@ -9,7 +9,7 @@ quoteurl = "https://andruxnet-random-famous-quotes.p.rapidapi.com/"
 quotequerystring = {"cat":"famous","count":"1"}
 quoteheaders = {
     "X-RapidAPI-Host": "andruxnet-random-famous-quotes.p.rapidapi.com",
-    "X-RapidAPI-Key": "5e3da382c8msh1e45f5a643c7123p16a959jsna7f55c284038"
+    "X-RapidAPI-Key": "SECRET"
 }
 quoteresponse = requests.get(quoteurl, headers=quoteheaders, params=quotequerystring)
 quotejson_data = json.loads(quoteresponse.text)
@@ -22,7 +22,7 @@ conn = http.client.HTTPSConnection("horse-racing.p.rapidapi.com")
 
 APIheaders = {
     'X-RapidAPI-Host': "horse-racing.p.rapidapi.com",
-    'X-RapidAPI-Key': "cf6e098d1bmsh3d8cf5fffc03b52p153d87jsn3bae94c34116"
+    'X-RapidAPI-Key': "SECRET"
     }
 ## request
 conn.request("GET", "/racecards?date={}".format(today), headers=APIheaders)
