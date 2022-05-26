@@ -37,3 +37,13 @@ def ByRaceRC():
     Window3_RaceCard.hide()
     Window2_TV.hide()
     Window5b_rprice.hide()
+
+def updateme():
+    subprocess.Popen(['python', "/home/james/GUIGIT/autoupdate.py"])
+
+def gethelp():
+    webbrowser.get('chromium-browser').open("https://www.jameshumphreys.xyz/help")
+    Window4b_basic.hide()
+    Window5b_rprice.hide()
+    Window2_TV.hide()
+    Window3_RaceCard.hide()
