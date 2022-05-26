@@ -1,4 +1,6 @@
 #! /usr/bin/python
+
+
 def watchpaddy2():
     username = "timegan40"
     password = "Grandadbet123!"
@@ -39,10 +41,6 @@ def watchpaddy():
     driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', chrome_options=options)
     wait=WebDriverWait(driver,20)
     driver.get("https://identitysso.paddypower.com/view/login?product=registration-web&url=https%3A%2F%2Fwww.paddypower.com%2Fbet%3F")
-    Window4b_basic.hide()
-    Window5b_rprice.hide()
-    Window2_TV.hide()
-    Window3_RaceCard.hide()
     buttonpath1 = "onetrust-accept-btn-handler"
     button1 = wait.until(EC.element_to_be_clickable((By.ID, buttonpath1)))
     button1.click()
