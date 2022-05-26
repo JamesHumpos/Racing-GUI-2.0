@@ -266,7 +266,8 @@ def MeetingTimeProd(MeetingChosen):
 def RPChoiceBut():
     global chosen_race
     chosen_race = RacesAPI.loc[RacesAPI['time'] == RPChoice.value, 'id_race'].iloc[0]
-    changeschoice(chosen_race)    
+    changeschoice(chosen_race)
+    showtable(horseraceall)
 
 def showtable(chosendata):
     def HomePress2():
