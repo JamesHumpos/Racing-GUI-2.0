@@ -491,7 +491,7 @@ LivePriceButton = PushButton(LivePriceBtnBox, command=PricesPress, image="/home/
 WatchRaceButton = PushButton(WatchBtnBox, command=WatchRacePress, image="/home/james/GUIGIT/HomePageImages/Watch.png")
 
 QuoteBox = Box(app,align="top",height="fill",width="fill")
-QuoteText = Text(QuoteBox,text=famousquote)
+QuoteText = Text(QuoteBox,text=famousquote,align="bottom")
 QuoteText.text_size=25
 AuthorBox = Box(app,align="top",height="fill",width="fill")
 AuthorText= Text(AuthorBox,align="top",text=famousauthor)
