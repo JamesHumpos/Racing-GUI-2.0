@@ -1,9 +1,8 @@
 #! /usr/bin/python
 from Import_modules import * ## import external functions
-from Navigation_buttons import * ## buttons that dictate user's movement through GUI
 from Price_functions import * ## buttons that relate to fetching prices
 from Watch_functions import * ## buttons that relate to live streaming
-from PDF_functions import * ## buttons that relate to PDF creation
+from Misc_funcs import * ## buttons that relate to PDF creation
 
 
 ### Create famous quote for homepage from API
@@ -144,8 +143,165 @@ Races_By_Meetings = Races_By_Meetings.explode(column="Races",ignore_index=True)
 Races_By_Meetings['Meeting'] ='All at ' + Races_By_Meetings['Meeting']
 Races_By_Meetings = Races_By_Meetings[['Meeting', 'LinksSimple']]
 
+## General GUI functions
+def HomePress2():
+    Window4b_basic.hide()
+    Window3_RaceCard.hide()
+    Window2_TV.hide()
+    Window5_mprice.hide()
+    Window5a_rprice.hide()
+    Window5b_rprice.hide()
+    
+def HomePress():
+    Window4b_basic.hide()
+    Window3_RaceCard.hide()
+    Window2_TV.hide()
+    Window5_mprice.hide()
+    Window5a_rprice.hide()
+    Window5b_rprice.hide()
+    
+def PricesPress():
+    Window5_mprice.show(wait = True)
+    Window2_TV.hide()
+    Window3_RaceCard.hide()
+    Window2_TV.hide()
+    
+def RaceCardPress():
+    Window3_RaceCard.show(wait = True)
+    Window2_TV.hide()
+    Window5b_rprice.hide()
+
+def WatchRacePress():
+    Window2_TV.show(wait = True)
+    Window4b_basic.hide()
+    Window5b_rprice.hide()
+    Window3_RaceCard.hide()
+
+def ByRaceRC():
+    Window4b_basic.show(wait = True)
+    Window3_RaceCard.hide()
+    Window2_TV.hide()
+    Window5b_rprice.hide()
+
+def updateme():
+    subprocess.Popen(['python', "/home/james/GUIGIT/autoupdate.py"])
+
+def gethelp():
+    webbrowser.get('chromium-browser').open("https://www.jameshumphreys.xyz/help")
+    Window4b_basic.hide()
+    Window5b_rprice.hide()
+    Window2_TV.hide()
+    Window3_RaceCard.hide()
+
+def pressed(button):
+    if button.pin.number == 15:
+        sysCmd.system('sudo killall chromium-browser')
 
 
+## Define Racecard functions        
+def OpenallRC():
+    filename = "/home/james/GUIGIT/CreatedPDFs/TodaysRacesSimple.pdf"
+    cmd = f"pdf-crop-margins -v -s -u {filename} -o /home/james/GUIGIT/CreatedPDFs/TodaysRaces.pdf"
+    proc = subprocess.Popen(cmd.split())
+    proc.wait()
+    output = PdfFileWriter() 
+    input = PdfFileReader(open("/home/james/GUIGIT/CreatedPDFs/TodaysRaces.pdf", 'rb')) 
+    n = input.getNumPages()
+    for i in range(n):
+        page = input.getPage(i)
+        page.cropBox.upperLeft = (577,750)
+        page.cropBox.upperRight = (17,750)
+        page.cropBox.lowerLeft = (577,30)
+        page.cropBox.lowerRight = (17,30)
+        output.addPage(page) 
+        outputStream = open("/home/james/GUIGIT/CreatedPDFs/Final.pdf",'wb') 
+        output.write(outputStream) 
+        outputStream.close()
+    webbrowser.get('chromium-browser').open('file:///home/james/GUIGIT/CreatedPDFs/Final.pdf', new=0)
+    Window4b_basic.hide()
+    Window5b_rprice.hide()
+    Window2_TV.hide()
+    Window3_RaceCard.hide()
+
+def SimpleMeetingOpen():
+    webbrowser.get('chromium-browser').open(Races_By_Meetings.loc[Races_By_Meetings['Meeting'] == SimpleMChoices.value, 'LinksSimple'].iloc[0])
+    Window4b_basic.hide()
+    Window5b_rprice.hide()
+    Window2_TV.hide()
+    Window3_RaceCard.hide()
+
+## Price functions that can't be stored externally
+def MPChoiceBut():
+    global Choiceone
+    Choiceone = MPChoice.value
+    print(MPChoice.value)
+    MeetingTimeProd(Choiceone)
+
+def MeetingTimeProd(MeetingChosen):
+    RacesAPIChoice=RacesAPI[RacesAPI.course == MeetingChosen]
+    print(RacesAPIChoice)
+    print(MeetingChosen)
+    global RPChoice
+    if 'RPChoice' in globals():
+        RPChoice.destroy()
+        RPChoice = ButtonGroup(Boxraceprice2, options=RacesAPIChoice["time"],command=RPChoiceBut,width="fill",height="fill",align="right")
+        RPChoice.text_size = 30
+        for radio_button in RPChoice.children:
+            radio_button.tk.config(borderwidth=12)
+            radio_button.tk.config(bg="gainsboro")
+            radio_button.tk.config(relief="raised")
+    else:
+        RPChoice = ButtonGroup(Boxraceprice2, options=RacesAPIChoice["time"],command=RPChoiceBut,width="fill",height="fill",align="right")
+        RPChoice.text_size = 30
+        for radio_button in RPChoice.children:
+            radio_button.tk.config(borderwidth=12)
+            radio_button.tk.config(bg="gainsboro")
+            radio_button.tk.config(relief="raised")
+    #for times in RacesAPIChoice["time"]:
+        #RPChoice.append(times)
+    print(RacesAPIChoice["time"])
+    Window5_mprice.hide()
+    Window5a_rprice.show()
+
+def RPChoiceBut():
+    global chosen_race
+    chosen_race = RacesAPI.loc[RacesAPI['time'] == RPChoice.value, 'id_race'].iloc[0]
+    changeschoice(chosen_race)    
+
+def showtable(chosendata):
+    def HomePress2():
+        Window5b_rprice.hide()
+    Window5b_rprice = Window(app, title="Prices", visible=False, width=1500, height = 800)
+    Homebuttonpricer = PushButton(Window5b_rprice, command=HomePress2,text="HOME", width=80, height = 2)
+    Homebuttonpricer.text_color = "white"
+    Homebuttonpricer.bg = "red"
+    Homebuttonpricer.text_size = 20
+    style = ttk.Style()
+    style.configure("Treeview.Heading", highlightthickness=4, bd=0, font=('Calibri', 15))
+    tv = ttk.Treeview(Window5b_rprice.tk,style="Treeview.Heading")
+    tv["columns"]=list(chosendata.columns)
+    tv["show"]="headings"
+    for columns in tv["columns"]:
+        tv.heading(columns,text=columns)
+    tv.column("Horse",width=180)
+    tv.column("Age",width=50)
+    tv.column("Odds_Bet365",width=120)
+    tv.column("Weight",width=60)
+    tv.column("Running",width=70)
+    tv.column("Number",width=50)
+    tv.column("Jockey / Trainer",width=290)
+    chosendata_rows = chosendata.to_numpy().tolist()
+    for row in chosendata_rows:
+        tv.insert("","end",values=row)
+    Window5b_rprice.add_tk_widget(tv)
+    Window5b_rprice.show()
+
+def callwatchpaddy():
+    watchpaddy()
+    Window4b_basic.hide()
+    Window5b_rprice.hide()
+    Window2_TV.hide()
+    Window3_RaceCard.hide()
                                     ## Simple GUI for navigating the days races
 
 
