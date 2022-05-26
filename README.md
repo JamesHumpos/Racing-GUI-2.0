@@ -4,6 +4,19 @@ ONLY TO BE USED FOR EDUCATIONAL / DEMONSTRATIONAL PURPOSES
 
 To use, you'll need to replace usernames, password and keys currently removed in the public version of this script.
 
+Intended to be run on Raspberry Pi 4b with:
+Debian version: 11 (bullseye)
+Release date: April 4th 2022
+System: 32-bit
+Kernel version: 5.15
+
+Though can be adapted to run with Python3+ anywhere. 
+
+Autostart and autoupdate features require a service to be created in using system.d method described here: https://github.com/JamesHumpos/GUIGIT/blob/master/boot.pdf
+
+Service file:
+
+
 MIT License
 
 Copyright (c) [2022] [James H]
