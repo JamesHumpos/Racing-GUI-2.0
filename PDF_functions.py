@@ -30,3 +30,8 @@ def SimpleMeetingOpen():
     Window2_TV.hide()
     Window3_RaceCard.hide()
  
+def download_file(download_url, filename):
+    response = urllib.request.urlopen(download_url)    
+    file = open(filename, 'wb')
+    file.write(response.read())
+    file.close()
