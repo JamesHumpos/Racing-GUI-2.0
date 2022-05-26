@@ -63,7 +63,6 @@ def cleanracedata(racedata):
     horseraceall['Running'] = horseraceall.NR.replace(to_replace=["0", "1"], value=['yes', 'no'])
     new_cols = ["Horse","Number","Odds_Bet365","Age","Weight","Jockey / Trainer","Running"]
     horseraceall=horseraceall[new_cols]
-    Window5a_rprice.hide()
     showtable(horseraceall)
     
 
