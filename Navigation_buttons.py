@@ -47,3 +47,8 @@ def gethelp():
     Window5b_rprice.hide()
     Window2_TV.hide()
     Window3_RaceCard.hide()
+
+def pressed(button):
+    if button.pin.number == 15:
+        sysCmd.system('sudo killall chromium-browser')
+
