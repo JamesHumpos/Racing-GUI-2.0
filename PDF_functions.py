@@ -1,4 +1,5 @@
 #! /usr/bin/python
+import urllib.request
 def OpenallRC():
     filename = "/home/james/GUIGIT/CreatedPDFs/TodaysRacesSimple.pdf"
     cmd = f"pdf-crop-margins -v -s -u {filename} -o /home/james/GUIGIT/CreatedPDFs/TodaysRaces.pdf"
