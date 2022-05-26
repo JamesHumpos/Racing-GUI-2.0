@@ -2,6 +2,7 @@
 
 ONLY TO BE USED FOR EDUCATIONAL / DEMONSTRATIONAL PURPOSES
 
+To use, you'll need to replace usernames, password and keys currently removed in the public version of this script.
 
 MIT License
 
