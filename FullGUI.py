@@ -492,10 +492,10 @@ WatchRaceButton = PushButton(WatchBtnBox, command=WatchRacePress, image="/home/j
 
 QuoteBox = Box(app,align="top",height="fill",width="fill")
 QuoteText = Text(QuoteBox,text=famousquote,align="bottom")
-QuoteText.text_size=25
+QuoteText.text_size=21
 AuthorBox = Box(app,align="top",height="fill",width="fill")
 AuthorText= Text(AuthorBox,align="top",text=famousauthor)
-AuthorText.text_size=20
+AuthorText.text_size=18
 
 HelpBox = Box(app,align="bottom",height="fill",width="fill")
 UpdateButton = PushButton(HelpBox,command=updateme,text="UPDATE",align="bottom")
