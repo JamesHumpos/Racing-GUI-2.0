@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-
+from Import_modules import * ## import external functions
 def watchpaddy2():
     username = "timegan40"
     password = "Grandadbet123!"
